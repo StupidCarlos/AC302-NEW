@@ -8,6 +8,7 @@ function preload(){
   game.load.image('star', 'assets/star.png');
   game.load.spritesheet('dude', 'assets/kingkong.png', 53, 50);
   game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32);
+  game.load.image('health', 'assets/firstaid.png');
 }
 
 function create(){
@@ -76,14 +77,21 @@ function create(){
 
 	// Create keyboard entries
 	cursors = game.input.keyboard.createCursorKeys();
-
+	healths= game.add.physicsGroup();
+	healths.enableBody = true;
+enterkey = game.input.keyboard.addkey(
+	Phaser.keyborad.ENTER);
+goText = game.add.text(o,0,'',style);
+goText.setShadow(3,3,'rgba(0,0,0,0.5',2)
+goText.setTextBounds(100,200,800,100);
+goText.visible = false;
 }
 
 function update(){
 	game.physics.arcade.collide(player, platforms);
 	game.physics.arcade.collide(stars, platforms);
 	game.physics.arcade.collide(enemy1, platforms);
-
++	game.physics.arcade.collide(healths, platforms);
 	//reset the player's velocity if no events.
 	player.body.velocity.x = 0;
 
@@ -109,7 +117,7 @@ function update(){
 	//Lesson 9:
 	game.physics.arcade.overlap(player, stars, collectStar); //, null, this);
 	game.physics.arcade.overlap(player, enemy1, loseLife);   //, null, this);
-
+	game.physics.arcade.overlap(player, healths, collectHealth);
 	moveEnemy();
 
 	if(life < 0){
@@ -128,6 +136,12 @@ function collectStar(player,star){
 	//remove the star and reset to the top
 	star.kill();
 	star.reset(Math.floor(Math.random()*750),0)
+	if(score % 10 == 0){
+	health = healths.create(Math.floor(
+		Math.random()*750),0,'health');
+	health.body.gravity.y = 200;
+	health.body.bounce.y = 0.2;
+	}
 }
 
 //define loseLife
@@ -153,8 +167,20 @@ function moveEnemy(){
 
 function endGame(){
   player.kill();
-  scorelabel.text="GAME OVER! You scored " + score;
+  scorelabel.text="GAME OVER! You scored " + score 
   scoretext.visible = false;
   lifelabel.visible = false;
   lifetext.visible = false;
+  scorelabel.visible = false;
+  goText.text = "GAMER OVER!\n You scored " + score + "\n Press Enter to try again....";
+  goText.visible = true;
+  enterKey.ibDiwb.addOnce(restartGame);
+  
+
+}
+
+function collectHealth(player,health){
+	life += 1;
+	lifetext.setText(life);
+	health.kill();
 }
