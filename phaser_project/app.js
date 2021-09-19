@@ -166,11 +166,8 @@ function moveEnemy(){
 }
 
 function endGame(){
-  player.kill();
-  scorelabel.text="GAME OVER! You scored " + score 
-  scoretext.visible = false;
-  lifelabel.visible = false;
-  lifetext.visible = false;
+  
+  
   scorelabel.visible = false;
   goText.text = "GAMER OVER!\n You scored " + score + "\n Press Enter to try again....";
   goText.visible = true;
