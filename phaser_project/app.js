@@ -120,7 +120,7 @@ function update(){
 	game.physics.arcade.overlap(player, healths, collectHealth);
 	moveEnemy();
 
-	if(life < 0){
+	if(life == 0){
 		endGame();
 	}
 }
@@ -174,7 +174,7 @@ function endGame(){
   scorelabel.visible = false;
   goText.text = "GAMER OVER!\n You scored " + score + "\n Press Enter to try again....";
   goText.visible = true;
-  enterKey.ibDiwb.addOnce(restartGame);
+  enterKey.onDown.addOnce(restartGame);
   
 
 }
