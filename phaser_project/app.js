@@ -79,12 +79,12 @@ function create(){
 	cursors = game.input.keyboard.createCursorKeys();
 	healths= game.add.physicsGroup();
 	healths.enableBody = true;
-enterkey = game.input.keyboard.addkey(
+enterKey = game.input.keyboard.addkey(
 	Phaser.keyborad.ENTER);
-goText = game.add.text(o,0,'',style);
-goText.setShadow(3,3,'rgba(0,0,0,0.5',2)
-goText.setTextBounds(100,200,800,100);
-goText.visible = false;
+	goText = game.add.text(0,0,'',style);
+	goText.setShadow(3,3,'rgba(0,0,0,0.5',2)
+	goText.setTextBounds(100,200,800,100);
+	goText.visible = false;
 }
 
 function update(){
@@ -118,6 +118,7 @@ function update(){
 	game.physics.arcade.overlap(player, stars, collectStar); //, null, this);
 	game.physics.arcade.overlap(player, enemy1, loseLife);   //, null, this);
 	game.physics.arcade.overlap(player, healths, collectHealth);
+	
 	moveEnemy();
 
 	if(life == 0){
@@ -166,8 +167,11 @@ function moveEnemy(){
 }
 
 function endGame(){
-  
-  
+  player.kill();
+  scoretext.visible = false;
+  lifelabel.visible = false;
+  lifetext.visible = false;
+
   scorelabel.visible = false;
   goText.text = "GAMER OVER!\n You scored " + score + "\n Press Enter to try again....";
   goText.visible = true;
