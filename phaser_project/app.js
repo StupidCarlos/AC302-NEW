@@ -184,3 +184,35 @@ function collectHealth(player,health){
 	lifetext.setText(life);
 	health.kill();
 }
+
+function restartGame(){
+	stars.callALl('kill');
+	healths.callALl('kill');
+	diamonds.callALl('kill');
+	player.reset(32, 400);
+	score = 0;
+	life = 3
+	lifetext.setText(life);
+	scoretext.setText(score);
+	goText.visible = false;
+	scorelabel.visible = true;
+	scoretext.visible = true;
+	lifelabel.visible = true;
+	lifetext.visible = true;
+for (var i = 0; i < 12; i++) {
+	var star = stars.create(i *
+		70,0, 'star');
+	star.body.gravity.y = 200;
+	health.body.gravity.y = 200;
+	health.body.bounce.y = 0.7 +
+	Math.random() * 0.2;
+
+}
+
+var diamond = diamonds.create(Math.floor(Math.random()*750)
+	,0, 'diamond');
+	diamond.body.gravity.y = 200;
+	diamond.body.bounce.y = 0.7 +
+	Math.random() *0.2;
+
+}
